@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
 
-    <title>AndroidネイティブゲームをLispで作ろう！(仮)</title>
+    <title>AndroidネイティブゲームをLispで作ろう！</title>
 
     <!--
     <meta name="description" content="A framework for easily creating beautiful presentations using HTML">
@@ -21,7 +21,10 @@
 
     <!-- For syntax highlighting -->
     <link rel="stylesheet" href="lib/css/zenburn.css">
-    <style>strong { color:red }</style>
+
+    <style><!--
+      strong { color: red }
+      --></style>
 
     <!-- If the query includes 'print-pdf', use the PDF print sheet -->
     <script>
@@ -41,32 +44,32 @@
       <div class="slides">
 
         <section>
-        <h3>Androidネイティブゲームを<br />Lispで作ろう！(仮)</h3>
+        <h3>Androidネイティブゲームを<br />Lispで作ろう！</h3>
         <p><small><a href="http://tir.jp/">技情研ネット</a> <a href="http://twitter.com/rnkv">山田</a></small></p>
         </section>
 
 
         <section>
-        <h2>CLAN</h2>
-        <ul>
-          <li><a target="_blank" href="https://github.com/ayamada/clan">CLAN</a>というものを作った</li>
-          <li class="fragment">CLANは、自作のアプリ構築キット</li>
-          <li class="fragment"><a target="_blank" href="http://libgdx.badlogicgames.com/">LibGDX</a>というJava用のゲーム構築ライブラリ(後で説明します)と、Java用Lisp処理系であるClojureを一緒に使えるようにしたもの</li>
-        </ul>
-        </section>
-
-
-        <section>
-        <h2>CLANデモ</h2>
+        <h2>デモ</h2>
         <!-- TODO: あとで動画へのリンクを貼る -->
-        <p>CLAN付属のサンプルゲームをちょっと動かしてみる</p>
+        <!-- <p>CLAN付属のサンプルゲームをちょっと動かしてみる</p> -->
         <div>(実演タイム)</div>
         </section>
 
 
         <section>
+        <h2>これは何？</h2>
+        <ul>
+          <li>これは、自分が作った<a target="_blank" href="https://github.com/ayamada/clan">CLAN</a>というもの</li>
+          <li class="fragment">CLANは、Android向けアプリ構築キット</li>
+          <li class="fragment">具体的には、<a target="_blank" href="http://libgdx.badlogicgames.com/">LibGDX</a>というJava用のゲーム構築ライブラリと、Java用Lisp処理系であるClojureを一緒に使えるようにしたもの</li>
+        </ul>
+        </section>
+
+
         <section>
-        <h2>LibGDXとは</h2>
+        <section>
+        <h2>LibGDXって何？</h2>
         <ul>
           <li>日本では全然流行ってないが、英語圏ではそこそこ人気があるゲーム構築ライブラリ</li>
           <li>一時期話題になった「<a target="_blank" href="http://www.ingress.com/">Ingress</a>」(実世界のGPS情報を利用したオンライン陣取りゲーム、Google製)もLibGDXを使っている</li>
@@ -74,7 +77,7 @@
         <div>↓</div>
         </section>
         <section>
-        <h2>LibGDX概要</h2>
+        <h2>もうちょっと詳しく！</h2>
         <ul>
           <li>LibGDXは、同じソースから、Javaの動く各デスクトップ向けOS、Android、iOS、html5のそれぞれに対するデプロイができる</li>
           <li>OpenGL(ES)を使って、一枚のスクリーンを毎フレーム更新していくタイプ。<br />各OSの標準のGUI等は基本使わない → ゲーム向き</li>
@@ -84,10 +87,10 @@
         <div>↓</div>
         </section>
         <section>
-        <h2>LibGDX情報</h2>
+        <h2>もっと知りたい！</h2>
         <ul>
-          <li>LibGDXの開発者が書いた<a target="_blank" href="http://www.impressjapan.jp/books/3113">Androidゲームプログラミング A to Z</a>(<a target="_blank" href="http://www.amazon.co.jp/o/ASIN/4844331132/tirnejp-22">amazon</a>)という本がある。<br />これはLibGDXそのものの解説書ではないものの、これを読めば、LibGDXも含めたAndroid向けゲーム作成の概要が分かる。<br />良著、ただし2011年の本。</li>
-          <li><a target="_blank" href="http://libgdx.badlogicgames.com/">LibGDX公式サイト</a>にJavadoc、Wiki、Forumがあり、どれもまめに更新されている。</li>
+          <li>LibGDXの開発者が書いた<a target="_blank" href="http://www.impressjapan.jp/books/3113">Androidゲームプログラミング A to Z</a>(<a target="_blank" href="http://www.amazon.co.jp/o/ASIN/4844331132/tirnejp-22">amazon</a>)という本がある。<br />これはLibGDXそのものの解説書ではないものの、これを読めば、LibGDXも含めたAndroid向けゲーム作成の概要が分かる。<br />良著、ただし2011年の本なのでちょっと情報が古くなっている。</li>
+          <li><a target="_blank" href="http://libgdx.badlogicgames.com/">LibGDX公式サイト</a>にJavadoc、Wiki、Forumがあり、どれもまめに更新されている。もちろん英語。</li>
           <li>自分以外にもLibGDXを試して日本語でブログ記事を書いてる人が数人ぐらいいるので、ぐぐってみる</li>
         </ul>
         </section>
@@ -97,20 +100,21 @@
         <section>
         <h2>Android用ゲームを作ってみた</h2>
         <p>タイトルは「ぶらり猫の旅」</p>
-        <p><a target="_blank" href="https://play.google.com/store/apps/details?id=jp.ne.tir.vnctst.android.underworld">Google Play</a> にて普通に公開中</p>
-        <p>しかし完成までには色々と困難があった</p>
+        <p><a target="_blank" href="https://play.google.com/store/apps/details?id=jp.ne.tir.vnctst.android.underworld">Google Play</a> にて普通に配布中</p>
+        <p><a target="_blank" href="http://vnctst.tir.jp/ja/games/driftcat_underworld.html">VNCTST games</a> にてPC向けも配布中</p>
+        <p>しかし完成までには色々と問題があった</p>
         </section>
 
 
         <section>
         <section>
-        <h2>問題点</h2>
+        <h2>問題？</h2>
         <ul><li>気分よくClojureで普通にコード書いてPC上で問題なく動いた。しかしAndroid実機で動かしたらすごいガクガクしてまともに遊べない</li></ul>
         <div>↓</div>
         </section>
         <section>
-        <h2>対策</h2>
-        <p>以下を満たす事で、実機でもフレームレートが改善<br />(手元の端末ではほぼ60を達成)</p>
+        <h2>どう解決したの？</h2>
+        <p>以下を満たす事で、実機でもフレームレートが改善した<br />(手元の端末ではほぼ60を達成)</p>
         <ul>
           <li>フレーム毎のrender()メソッド内ではオブジェクト生成をしてはならない。生成するとGCが動いてフレームレート低下</li>
           <li>外部メソッドおよび関数呼び出しはDalvik VM上ではそこそこのコストがかかる。のでフレーム毎のrender()メソッド内では、可能な限りこれらの回数を少なくする</li>
@@ -118,8 +122,8 @@
         <div>↓</div>
         </section>
         <section>
-        <h2>結果</h2>
-        <p><strong>関数型言語としてのClojureちゃんが息してない</strong></p>
+        <h2>解決したんだ。よかったね。</h2>
+        <p class="fragment">よくない。<br /><strong>関数型言語としてのClojureちゃんが息してない</strong></p>
         <ul>
           <li class="fragment">Clojureのimmutableなデータ型が使えない<br />(使うとGC発生)</li>
           <li class="fragment">mapやreduce(いわゆるfold)が使えない<br />(中で毎回関数呼び出しが発生するのと、中でconsしてるのでGC発生源になる)</li>
@@ -133,16 +137,21 @@
 
         <section>
         <section>
+        <h2>じゃあどうするの？</h2>
+        <p>以下からどれかを選択する。</p>
+        <div>↓</div>
+        </section>
+        <section>
         <h2>選択肢#1</h2>
         <ol start="1">
-          <li>Android向けは諦める。<br />PC向けだけにする。<br />そして普通にClojure的なコードを書いて楽に開発する。<br /><small>Minecraftみたいな奴とか</small></li>
+          <li>Android向けは諦める。<br />PC向けだけにする。<br />そして普通にClojure的なコードを書いて楽に開発する。<br /><small>がんばればMinecraftレベルぐらいまで作りこめると思う</small></li>
         </ol>
         <div>↓</div>
         </section>
         <section>
         <h2>選択肢#2</h2>
         <ol start="2">
-          <li>ゲームは諦め、<a href="https://github.com/alexander-yakushev/neko">Neko</a>だけを使って、普通のアプリを作る。<br />アプリならフレームレートが悪くてもそんなに問題はない。<br /><small>LINEみたいな奴とか</small></li>
+          <li>ゲームは諦め、<a href="https://github.com/alexander-yakushev/neko">Neko</a>だけを使って、普通のアプリを作る。<br />アプリなら毎フレーム描画する必要はないのでGCはそこまで多発しない。<br /><small>便利で面白ければLINEみたいに大流行するかも？</small></li>
         </ol>
         <p><small>(Nekoは、Clojureで普通のAndroidアプリを書く為のフレームワーク)</small></p>
         <div>↓</div>
@@ -150,14 +159,14 @@
         <section>
         <h2>選択肢#3</h2>
         <ol start="3">
-          <li>通常のJavaによるAndroidアプリ開発と同様のテクニックを用いてカリカリにチューニングできるDSLを、マクロで構築する。<br />その上で、ぬるぬる動くAndroidネイティブゲームを作る。<br /><small>パズドラみたいな奴とか</small></li>
+          <li>通常のJavaによるAndroidアプリ開発と同様のテクニックを用いてカリカリにチューニングできるDSLを、マクロで構築する。<br />その上で、ぬるぬる動くAndroidネイティブゲームを作る。<br /><small>パズドラみたいに人気が出たらいいね</small></li>
         </ol>
         <div>↓</div>
         </section>
         <section>
         <h2>選択肢#4</h2>
         <ol start="4">
-          <li>マクロを使って、前述の各問題(cons不可、関数呼び出し重い)を回避したLisp処理系をClojure上に構築する。<br />その上で楽にぬるぬる動くゲームを作る。<br /><small>※高難易度。誰か挑戦してみませんか。</small></li>
+          <li>マクロを使って、前述の各問題(cons不可、関数呼び出し重い)を回避したLisp処理系をClojure上に構築する。<br />その上で楽にぬるぬる動くゲームを作る。<br /><small>GCを自前で用意する必要あり。高難易度</small></li>
         </ol>
         </section>
         </section>
@@ -166,10 +175,10 @@
         <section>
         <h2>まとめ</h2>
         <ul>
-          <li class="fragment">とりあえず、まともな速度で動作するゲームが作れる、という事は分かった</li>
+          <li class="fragment">とりあえず、まともな速度で動作するゲームが作れた</li>
           <li class="fragment">ただしAndroid実機でまともな速度で動かすには、Javaと同程度のチューニング労力をかける必要がある</li>
           <li class="fragment">Android実機で動かすのを諦めてPC配布のみにするなら、普通にClojureの流儀で書いて全く問題ない。<br />CLANでゲーム作って<a href="http://ch.nicovideo.jp/indies-game">ニコニコ自作ゲームフェス</a>とかに応募してみよう！</li>
-          <li class="fragment">プログラムの実行速度が良い事と、そのゲームを遊んでみて面白いかどうかという事は、直交する概念。<br /><strong>ぬるぬる動いてもクソゲーでは駄目です！</strong></li>
+          <li class="fragment">プログラムの実行速度が良好な事と、そのゲームが面白いかどうかという事は、直交する概念。<br /><strong>ぬるぬる動いてもクソゲーでは駄目です！</strong></li>
         </ul>
         </section>
 
