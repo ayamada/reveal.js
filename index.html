@@ -1,366 +1,220 @@
 <!doctype html>
 <html lang="en">
 
-	<head>
-		<meta charset="utf-8">
+  <head>
+    <meta charset="utf-8">
 
-		<title>reveal.js - The HTML Presentation Framework</title>
+    <title>AndroidネイティブゲームをLispで作ろう！(仮)</title>
 
-		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
-		<meta name="author" content="Hakim El Hattab">
+    <!--
+    <meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+    -->
+    <meta name="author" content="atsuo yamada">
 
-		<meta name="apple-mobile-web-app-capable" content="yes" />
-		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<link rel="stylesheet" href="css/reveal.min.css">
-		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+    <link rel="stylesheet" href="css/reveal.min.css">
+    <link rel="stylesheet" href="css/theme/default.css" id="theme">
 
-		<!-- For syntax highlighting -->
-		<link rel="stylesheet" href="lib/css/zenburn.css">
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+    <style>strong { color:red }</style>
 
-		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
-		<script>
-			document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
-		</script>
+    <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+    <script>
+      document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+    </script>
 
-		<!--[if lt IE 9]>
-		<script src="lib/js/html5shiv.js"></script>
-		<![endif]-->
-	</head>
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+  </head>
 
-	<body>
+  <body>
 
-		<div class="reveal">
+    <div class="reveal">
 
-			<!-- Any section element inside of this container is displayed as a slide -->
-			<div class="slides">
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
 
-				<section>
-					<h1>Reveal.js</h1>
-					<h3>HTML Presentations Made Easy</h3>
-					<p>
-						<small>Created by <a href="http://hakim.se">Hakim El Hattab</a> / <a href="http://twitter.com/hakimel">@hakimel</a></small>
-					</p>
-				</section>
+        <section>
+        <h3>Androidネイティブゲームを<br />Lispで作ろう！(仮)</h3>
+        <p><small><a href="http://tir.jp/">技情研ネット</a> <a href="http://twitter.com/rnkv">山田</a></small></p>
+        </section>
 
-				<section>
-					<h2>Heads Up</h2>
-					<p>
-						reveal.js is a framework for easily creating beautiful presentations using HTML. You'll need a browser with
-						support for CSS 3D transforms to see it in its full glory.
-					</p>
 
-					<aside class="notes">
-						Oh hey, these are some notes. They'll be hidden in your presentation, but you can see them if you open the speaker notes window (hit 's' on your keyboard).
-					</aside>
-				</section>
+        <section>
+        <h2>CLAN</h2>
+        <ul>
+          <li><a target="_blank" href="https://github.com/ayamada/clan">CLAN</a>というものを作った</li>
+          <li class="fragment">CLANは、自作のアプリ構築キット</li>
+          <li class="fragment"><a target="_blank" href="http://libgdx.badlogicgames.com/">LibGDX</a>というJava用のゲーム構築ライブラリ(後で説明します)と、Java用Lisp処理系であるClojureを一緒に使えるようにしたもの</li>
+        </ul>
+        </section>
 
-				<!-- Example of nested vertical slides -->
-				<section>
-					<section>
-						<h2>Vertical Slides</h2>
-						<p>
-							Slides can be nested inside of other slides,
-							try pressing <a href="#" class="navigate-down">down</a>.
-						</p>
-						<a href="#" class="image navigate-down">
-							<img width="178" height="238" src="https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png" alt="Down arrow">
-						</a>
-					</section>
-					<section>
-						<h2>Basement Level 1</h2>
-						<p>Press down or up to navigate.</p>
-					</section>
-					<section>
-						<h2>Basement Level 2</h2>
-						<p>Cornify</p>
-						<a class="test" href="http://cornify.com">
-							<img width="280" height="326" src="https://s3.amazonaws.com/hakim-static/reveal-js/cornify.gif" alt="Unicorn">
-						</a>
-					</section>
-					<section>
-						<h2>Basement Level 3</h2>
-						<p>That's it, time to go back up.</p>
-						<a href="#/2" class="image">
-							<img width="178" height="238" src="https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png" alt="Up arrow" style="-webkit-transform: rotate(180deg);">
-						</a>
-					</section>
-				</section>
 
-				<section>
-					<h2>Slides</h2>
-					<p>
-						Not a coder? No problem. There's a fully-featured visual editor for authoring these, try it out at <a href="http://slid.es" target="_blank">http://slid.es</a>.
-					</p>
-				</section>
+        <section>
+        <h2>CLANデモ</h2>
+        <!-- TODO: あとで動画へのリンクを貼る -->
+        <p>CLAN付属のサンプルゲームをちょっと動かしてみる</p>
+        <div>(実演タイム)</div>
+        </section>
 
-				<section>
-					<h2>Point of View</h2>
-					<p>
-						Press <strong>ESC</strong> to enter the slide overview.
-					</p>
-					<p>
-						Hold down alt and click on any element to zoom in on it using <a href="http://lab.hakim.se/zoom-js">zoom.js</a>. Alt + click anywhere to zoom back out.
-					</p>
-				</section>
 
-				<section>
-					<h2>Works in Mobile Safari</h2>
-					<p>
-						Try it out! You can swipe through the slides and pinch your way to the overview.
-					</p>
-				</section>
+        <section>
+        <section>
+        <h2>LibGDXとは</h2>
+        <ul>
+          <li>日本では全然流行ってないが、英語圏ではそこそこ人気があるゲーム構築ライブラリ</li>
+          <li>一時期話題になった「<a target="_blank" href="http://www.ingress.com/">Ingress</a>」(実世界のGPS情報を利用したオンライン陣取りゲーム、Google製)もLibGDXを使っている</li>
+        </ul>
+        <div>↓</div>
+        </section>
+        <section>
+        <h2>LibGDX概要</h2>
+        <ul>
+          <li>LibGDXは、同じソースから、Javaの動く各デスクトップ向けOS、Android、iOS、html5のそれぞれに対するデプロイができる</li>
+          <li>OpenGL(ES)を使って、一枚のスクリーンを毎フレーム更新していくタイプ。<br />各OSの標準のGUI等は基本使わない → ゲーム向き</li>
+          <li>他の、Androidデプロイ可能なゲーム用フレームワークよりも速度面で優れている、らしい</li>
+          <li>日本語のドキュメントや記事さえあれば日本でももっと流行ると思う、中身は優秀なので</li>
+        </ul>
+        <div>↓</div>
+        </section>
+        <section>
+        <h2>LibGDX情報</h2>
+        <ul>
+          <li>LibGDXの開発者が書いた<a target="_blank" href="http://www.impressjapan.jp/books/3113">Androidゲームプログラミング A to Z</a>(<a target="_blank" href="http://www.amazon.co.jp/o/ASIN/4844331132/tirnejp-22">amazon</a>)という本がある。<br />これはLibGDXそのものの解説書ではないものの、これを読めば、LibGDXも含めたAndroid向けゲーム作成の概要が分かる。<br />良著、ただし2011年の本。</li>
+          <li><a target="_blank" href="http://libgdx.badlogicgames.com/">LibGDX公式サイト</a>にJavadoc、Wiki、Forumがあり、どれもまめに更新されている。</li>
+          <li>自分以外にもLibGDXを試して日本語でブログ記事を書いてる人が数人ぐらいいるので、ぐぐってみる</li>
+        </ul>
+        </section>
+        </section>
 
-				<section>
-					<h2>Marvelous Unordered List</h2>
-					<ul>
-						<li>No order here</li>
-						<li>Or here</li>
-						<li>Or here</li>
-						<li>Or here</li>
-					</ul>
-				</section>
 
-				<section>
-					<h2>Fantastic Ordered List</h2>
-					<ol>
-						<li>One is smaller than...</li>
-						<li>Two is smaller than...</li>
-						<li>Three!</li>
-					</ol>
-				</section>
+        <section>
+        <h2>Android用ゲームを作ってみた</h2>
+        <p>タイトルは「ぶらり猫の旅」</p>
+        <p><a target="_blank" href="https://play.google.com/store/apps/details?id=jp.ne.tir.vnctst.android.underworld">Google Play</a> にて普通に公開中</p>
+        <p>しかし完成までには色々と困難があった</p>
+        </section>
 
-				<section data-markdown>
-					<script type="text/template">
-						## Markdown support
 
-						For those of you who like that sort of thing. Instructions and a bit more info available [here](https://github.com/hakimel/reveal.js#markdown).
+        <section>
+        <section>
+        <h2>問題点</h2>
+        <ul><li>気分よくClojureで普通にコード書いてPC上で問題なく動いた。しかしAndroid実機で動かしたらすごいガクガクしてまともに遊べない</li></ul>
+        <div>↓</div>
+        </section>
+        <section>
+        <h2>対策</h2>
+        <p>以下を満たす事で、実機でもフレームレートが改善<br />(手元の端末ではほぼ60を達成)</p>
+        <ul>
+          <li>フレーム毎のrender()メソッド内ではオブジェクト生成をしてはならない。生成するとGCが動いてフレームレート低下</li>
+          <li>外部メソッドおよび関数呼び出しはDalvik VM上ではそこそこのコストがかかる。のでフレーム毎のrender()メソッド内では、可能な限りこれらの回数を少なくする</li>
+        </ul>
+        <div>↓</div>
+        </section>
+        <section>
+        <h2>結果</h2>
+        <p><strong>関数型言語としてのClojureちゃんが息してない</strong></p>
+        <ul>
+          <li class="fragment">Clojureのimmutableなデータ型が使えない<br />(使うとGC発生)</li>
+          <li class="fragment">mapやreduce(いわゆるfold)が使えない<br />(中で毎回関数呼び出しが発生するのと、中でconsしてるのでGC発生源になる)</li>
+        </ul>
+        <ul>
+          <li class="fragment">Clojureは関数指向言語である前にLispなので、マクロを使えばある程度DSL化ができる。<br />とは言うもののcons類もmap類も封じられると非常にきつい</li>
+        </ul>
+        </section>
+        </section>
 
-						```
-						<section data-markdown>
-						  ## Markdown support
 
-						  For those of you who like that sort of thing.
-						  Instructions and a bit more info available [here](https://github.com/hakimel/reveal.js#markdown).
-						</section>
-						```
-					</script>
-				</section>
+        <section>
+        <section>
+        <h2>選択肢#1</h2>
+        <ol start="1">
+          <li>Android向けは諦める。<br />PC向けだけにする。<br />そして普通にClojure的なコードを書いて楽に開発する。<br /><small>Minecraftみたいな奴とか</small></li>
+        </ol>
+        <div>↓</div>
+        </section>
+        <section>
+        <h2>選択肢#2</h2>
+        <ol start="2">
+          <li>ゲームは諦め、<a href="https://github.com/alexander-yakushev/neko">Neko</a>だけを使って、普通のアプリを作る。<br />アプリならフレームレートが悪くてもそんなに問題はない。<br /><small>LINEみたいな奴とか</small></li>
+        </ol>
+        <p><small>(Nekoは、Clojureで普通のAndroidアプリを書く為のフレームワーク)</small></p>
+        <div>↓</div>
+        </section>
+        <section>
+        <h2>選択肢#3</h2>
+        <ol start="3">
+          <li>通常のJavaによるAndroidアプリ開発と同様のテクニックを用いてカリカリにチューニングできるDSLを、マクロで構築する。<br />その上で、ぬるぬる動くAndroidネイティブゲームを作る。<br /><small>パズドラみたいな奴とか</small></li>
+        </ol>
+        <div>↓</div>
+        </section>
+        <section>
+        <h2>選択肢#4</h2>
+        <ol start="4">
+          <li>マクロを使って、前述の各問題(cons不可、関数呼び出し重い)を回避したLisp処理系をClojure上に構築する。<br />その上で楽にぬるぬる動くゲームを作る。<br /><small>※高難易度。誰か挑戦してみませんか。</small></li>
+        </ol>
+        </section>
+        </section>
 
-				<section id="transitions">
-					<h2>Transition Styles</h2>
-					<p>
-						You can select from different transitions, like: <br>
-						<a href="?transition=cube#/transitions">Cube</a> -
-						<a href="?transition=page#/transitions">Page</a> -
-						<a href="?transition=concave#/transitions">Concave</a> -
-						<a href="?transition=zoom#/transitions">Zoom</a> -
-						<a href="?transition=linear#/transitions">Linear</a> -
-						<a href="?transition=fade#/transitions">Fade</a> -
-						<a href="?transition=none#/transitions">None</a> -
-						<a href="?#/transitions">Default</a>
-					</p>
-				</section>
 
-				<section id="themes">
-					<h2>Themes</h2>
-					<p>
-						Reveal.js comes with a few themes built in: <br>
-						<a href="?theme=sky#/themes">Sky</a> -
-						<a href="?theme=beige#/themes">Beige</a> -
-						<a href="?theme=simple#/themes">Simple</a> -
-						<a href="?theme=serif#/themes">Serif</a> -
-						<a href="?theme=night#/themes">Night</a> -
-						<a href="?#/themes">Default</a>
-					</p>
-					<p>
-						<small>
-							* Theme demos are loaded after the presentation which leads to flicker. In production you should load your theme in the <code>&lt;head&gt;</code> using a <code>&lt;link&gt;</code>.
-						</small>
-					</p>
-				</section>
+        <section>
+        <h2>まとめ</h2>
+        <ul>
+          <li class="fragment">とりあえず、まともな速度で動作するゲームが作れる、という事は分かった</li>
+          <li class="fragment">ただしAndroid実機でまともな速度で動かすには、Javaと同程度のチューニング労力をかける必要がある</li>
+          <li class="fragment">Android実機で動かすのを諦めてPC配布のみにするなら、普通にClojureの流儀で書いて全く問題ない。<br />CLANでゲーム作って<a href="http://ch.nicovideo.jp/indies-game">ニコニコ自作ゲームフェス</a>とかに応募してみよう！</li>
+          <li class="fragment">プログラムの実行速度が良い事と、そのゲームを遊んでみて面白いかどうかという事は、直交する概念。<br /><strong>ぬるぬる動いてもクソゲーでは駄目です！</strong></li>
+        </ul>
+        </section>
 
-				<section>
-					<section data-state="alert">
-						<h2>Global State</h2>
-						<p>
-							Set <code>data-state="something"</code> on a slide and <code>"something"</code>
-							will be added as a class to the document element when the slide is open. This lets you
-							apply broader style changes, like switching the background.
-						</p>
-						<a href="#" class="image navigate-down">
-							<img width="178" height="238" src="https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png" alt="Down arrow">
-						</a>
-					</section>
-					<section data-state="blackout">
-						<h2>"blackout"</h2>
-						<a href="#" class="image navigate-down">
-							<img width="178" height="238" src="https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png" alt="Down arrow">
-						</a>
-					</section>
-					<section data-state="soothe">
-						<h2>"soothe"</h2>
-						<a href="#" class="image navigate-next">
-							<img width="178" height="238" src="https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png" alt="Up arrow" style="-webkit-transform: rotate(-90deg);">
-						</a>
-					</section>
-				</section>
 
-				<section data-state="customevent">
-					<h2>Custom Events</h2>
-					<p>
-						Additionally custom events can be triggered on a per slide basis by binding to the <code>data-state</code> name.
-					</p>
-					<pre><code data-trim contenteditable style="font-size: 18px; margin-top: 20px;">
-Reveal.addEventListener( 'customevent', function() {
-	console.log( '"customevent" has fired' );
-} );
-					</code></pre>
-				</section>
+        <section>
+        <h1>おわり</h1>
+        <p><small><a href="http://tir.jp/">技情研ネット</a> <a href="http://twitter.com/rnkv">山田</a></small></p>
+        </section>
 
-				<section>
-					<h2>Clever Quotes</h2>
-					<p>
-						These guys come in two forms, inline: <q cite="http://searchservervirtualization.techtarget.com/definition/Our-Favorite-Technology-Quotations">
-						&ldquo;The nice thing about standards is that there are so many to choose from&rdquo;</q> and block:
-					</p>
-					<blockquote cite="http://searchservervirtualization.techtarget.com/definition/Our-Favorite-Technology-Quotations">
-						&ldquo;For years there has been a theory that millions of monkeys typing at random on millions of typewriters would
-						reproduce the entire works of Shakespeare. The Internet has proven this theory to be untrue.&rdquo;
-					</blockquote>
-				</section>
+      </div>
 
-				<section>
-					<h2>Pretty Code</h2>
-					<pre><code data-trim contenteditable>
-function linkify( selector ) {
-  if( supports3DTransforms ) {
+    </div>
 
-    var nodes = document.querySelectorAll( selector );
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.min.js"></script>
 
-    for( var i = 0, len = nodes.length; i &lt; len; i++ ) {
-      var node = nodes[i];
+    <script>
 
-      if( !node.className ) ) {
-        node.className += ' roll';
-      }
-    };
-  }
-}
-					</code></pre>
-					<p>Courtesy of <a href="http://softwaremaniacs.org/soft/highlight/en/description/">highlight.js</a>.</p>
-				</section>
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        rollingLinks: false,
 
-				<section>
-					<h2>Intergalactic Interconnections</h2>
-					<p>
-						You can link between slides internally,
-						<a href="#/2/3">like this</a>.
-					</p>
-				</section>
+        // theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+        // transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
 
-				<section>
-					<section>
-						<h2>Fragmented Views</h2>
-						<p>Hit the next arrow...</p>
-						<p class="fragment">... to step through ...</p>
-						<ol>
-							<li class="fragment"><code>any type</code></li>
-							<li class="fragment"><em>of view</em></li>
-							<li class="fragment"><strong>fragments</strong></li>
-						</ol>
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+        { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+        // { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+        // { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+        { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+        // { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+        // { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+        // { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+        // { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+        ]
+      });
 
-						<aside class="notes">
-							This slide has fragments which are also stepped through in the notes window.
-						</aside>
-					</section>
-					<section>
-						<h2>Fragment Styles</h2>
-						<p>There's a few styles of fragments, like:</p>
-						<p class="fragment grow">grow</p>
-						<p class="fragment shrink">shrink</p>
-						<p class="fragment roll-in">roll-in</p>
-						<p class="fragment fade-out">fade-out</p>
-						<p class="fragment highlight-red">highlight-red</p>
-						<p class="fragment highlight-green">highlight-green</p>
-						<p class="fragment highlight-blue">highlight-blue</p>
-					</section>
-				</section>
+    </script>
 
-				<section>
-					<h2>Spectacular image!</h2>
-					<a class="image" href="http://lab.hakim.se/meny/" target="_blank">
-						<img width="320" height="299" src="http://s3.amazonaws.com/hakim-static/portfolio/images/meny.png" alt="Meny">
-					</a>
-				</section>
-
-				<section>
-					<h2>Export to PDF</h2>
-					<p>Presentations can be <a href="https://github.com/hakimel/reveal.js#pdf-export">exported to PDF</a>, below is an example that's been uploaded to SlideShare.</p>
-					<iframe id="slideshare" src="http://www.slideshare.net/slideshow/embed_code/13872948" width="455" height="356" style="margin:0;overflow:hidden;border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px" allowfullscreen> </iframe>
-					<script>
-						document.getElementById('slideshare').attributeName = 'allowfullscreen';
-					</script>
-				</section>
-
-				<section>
-					<h2>Take a Moment</h2>
-					<p>
-						Press b or period on your keyboard to enter the 'paused' mode. This mode is helpful when you want to take distracting slides off the screen
-						during a presentation.
-					</p>
-				</section>
-
-				<section>
-					<h2>Stellar Links</h2>
-					<ul>
-						<li><a href="http://slid.es">Try the online editor</a></li>
-						<li><a href="https://github.com/hakimel/reveal.js">Source code on GitHub</a></li>
-						<li><a href="http://twitter.com/hakimel">Follow me on Twitter</a></li>
-					</ul>
-				</section>
-
-				<section>
-					<h1>THE END</h1>
-					<h3>BY Hakim El Hattab / hakim.se</h3>
-				</section>
-
-			</div>
-
-		</div>
-
-		<script src="lib/js/head.min.js"></script>
-		<script src="js/reveal.min.js"></script>
-
-		<script>
-
-			// Full list of configuration options available here:
-			// https://github.com/hakimel/reveal.js#configuration
-			Reveal.initialize({
-				controls: true,
-				progress: true,
-				history: true,
-				center: true,
-
-				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
-				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
-
-				// Optional libraries used to extend on reveal.js
-				dependencies: [
-					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
-					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
-					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
-					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
-					// { src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
-					// { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
-				]
-			});
-
-		</script>
-
-	</body>
+  </body>
 </html>
+<!--vim:set ft=html5 sw=2 sts=2 ts=2 et: -->
