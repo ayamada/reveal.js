@@ -45,15 +45,14 @@
 
         <section>
         <h3>Androidネイティブゲームを<br />Lispで作ろう！</h3>
-        <p><small><a href="http://tir.jp/">技情研ネット</a> <a href="http://twitter.com/rnkv">山田</a></small></p>
+        <p><small>by <a href="http://tir.jp/">技情研ネット</a> <a href="http://twitter.com/rnkv">山田</a><br />at <a href="http://kyotolisp.doorkeeper.jp/events/5035">Kyoto.lisp TT #2</a> (2013/08/24)</small></p>
         </section>
 
 
         <section>
         <h2>デモ</h2>
-        <!-- TODO: あとで動画へのリンクを貼る -->
-        <!-- <p>CLAN付属のサンプルゲームをちょっと動かしてみる</p> -->
         <div>(実演タイム)</div>
+        <div><small>(<a href="http://www.nicovideo.jp/watch/sm21698433" target="_blank">CLANのチュートリアル動画</a>作りました。<br />この動画での2:00～6:00相当の内容を Kyoto.lisp TT #2 にて実演しました。)</small></div>
         </section>
 
 
@@ -102,6 +101,7 @@
         <p>タイトルは「ぶらり猫の旅」</p>
         <p><a target="_blank" href="https://play.google.com/store/apps/details?id=jp.ne.tir.vnctst.android.underworld">Google Play</a> にて普通に配布中</p>
         <p><a target="_blank" href="http://vnctst.tir.jp/ja/games/driftcat_underworld.html">VNCTST games</a> にてPC向けも配布中</p>
+        <p><small>(当日は時間があったので、軽くデモプレイも行いました。<br />内容は <a target="_blank" href="http://www.nicovideo.jp/watch/sm20447162">http://www.nicovideo.jp/watch/sm20447162</a> とほぼ同じ)</small></p>
         <p>しかし完成までには色々と問題があった</p>
         </section>
 
@@ -144,14 +144,14 @@
         <section>
         <h2>選択肢#1</h2>
         <ol start="1">
-          <li>Android向けは諦める。<br />PC向けだけにする。<br />そして普通にClojure的なコードを書いて楽に開発する。<br /><small>がんばればMinecraftレベルぐらいまで作りこめると思う</small></li>
+          <li>Android向けは諦める。<br />PC向けだけにする。<br />そして普通にClojure的なコードを書いて楽に開発する。<br />PC上で動かす分には、普通のClojure流儀のコードを書いても良好なパフォーマンスが出る。<br /><small>がんばればMinecraftレベルぐらいまで作りこめると思う</small></li>
         </ol>
         <div>↓</div>
         </section>
         <section>
         <h2>選択肢#2</h2>
         <ol start="2">
-          <li>ゲームは諦め、<a href="https://github.com/alexander-yakushev/neko">Neko</a>だけを使って、普通のアプリを作る。<br />アプリなら毎フレーム描画する必要はないのでGCはそこまで多発しない。<br /><small>便利で面白ければLINEみたいに大流行するかも？</small></li>
+          <li>ゲームは諦め、<a href="https://github.com/alexander-yakushev/neko">Neko</a>だけを使って、普通のアプリを作る。<br />アプリなら毎フレーム描画する必要はないので、GCはそこまで多発しないし悪影響も少ない。<br /><small>便利で面白ければLINEみたいに大流行するかも？</small></li>
         </ol>
         <p><small>(Nekoは、Clojureで普通のAndroidアプリを書く為のフレームワーク)</small></p>
         <div>↓</div>
@@ -186,6 +186,40 @@
         <section>
         <h1>おわり</h1>
         <p><small><a href="http://tir.jp/">技情研ネット</a> <a href="http://twitter.com/rnkv">山田</a></small></p>
+        </section>
+
+
+        <section>
+        <section>
+        <h2>おまけ</h2>
+        <p>プレゼン後の質問タイム、懇親会で出た質問<br />(憶えてる分のみ。メモ取れなかったので超うろおぼえ)</p>
+        <div>↓</div>
+        </section>
+        <section>
+        <h4>「現在のAndroidではチューニング必須」との事だけど、<br />進化速度早いから<br />「端末およびDalvik VMの性能がPC並になるのを待つ」<br />という選択肢はどう？</h4>
+        <ul><li>それは一般的にはアリだと思うんですが、自分は「このCLANで利益の出るゲーム/アプリを作って、可能なら会社勤務せずに暮らしていく」という事で作成したので、待っていると餓死してしまうので、自分的にはナシです！</li></ul>
+        <div>↓</div>
+        </section>
+        <section>
+        <h4>Android向けの最適化ってどんなの？</h4>
+        <ul>
+          <li>データはJavaの構造体やarrayに格納して破壊的変更して使う</li>
+          <li>オブジェクトは最初に大量に生成してそれを使いまわす、途中で作らない。<br />いわゆるJavaのprimitive数値型はオブジェクトではないので途中で作りまくっても問題ないがBigInt化とboxingに注意</li>
+          <li>mapやreduceは、dotimesやloop～recurで代用</li>
+          <li>関数実行回数の多いところはマクロ/definlineでインライン化</li>
+          <li>あとは既存のJavaでのAndroidアプリ最適化手法をぐぐって真似する！！！</li>
+        </ul>
+        <p>(このへん当日ちゃんと全部説明できてなかったと思う)</p>
+        <div>↓</div>
+        </section>
+        <section>
+        <h4>単なるconsが結構重いというのは意外</h4>
+        <ul>
+          <li>まだ調査中なんですが、AndroidのDalvik VMではどうも、cons等のオブジェクト生成(いわゆるJavaでのnew)を行うタイミングでGCを動かす判定も行われるようです。<br />なのでcons自体は重くはないけれど、同時にGCが動く時があり、それで0.05秒ぐらい世界が止まり、これが毎秒60フレーム更新するゲーム等では結構な問題になる、という感じ</li>
+          <li>最初から大量にcons cell確保して自前で管理できればいいけど、残念ながらClojureの標準のcons cell(というかsequence)はimmutableつまり変更不可！</li>
+          <li>何らかの抜け道がないかどうかはまだ模索中</li>
+        </ul>
+        </section>
         </section>
 
       </div>
