@@ -45,14 +45,14 @@
 
         <section>
         <h3>Androidネイティブゲームを<br />Lispで作ろう！</h3>
-        <p><small>by <a href="http://tir.jp/">技情研ネット</a> <a href="http://twitter.com/rnkv">山田</a><br />at <a href="http://kyotolisp.doorkeeper.jp/events/5035">Kyoto.lisp TT #2</a> (2013/08/24)</small></p>
+        <p><small>by <a href="http://tir.jp/">技情研ネット</a> <a href="http://twitter.com/rnkv">山田</a><br />at <a href="http://kyotolisp.doorkeeper.jp/events/5035">Kyoto.lisp TT #2</a> (2013/08/24)<br />(更新日時 2013/08/31)</small></p>
         </section>
 
 
         <section>
         <h2>デモ</h2>
-        <div>(実演タイム)</div>
-        <div><small>(<a href="http://www.nicovideo.jp/watch/sm21698433" target="_blank">CLANのチュートリアル動画</a>作りました。<br />この動画での2:00～6:00相当の内容を Kyoto.lisp TT #2 にて実演しました。)</small></div>
+        <div>(実演タイム)<br /><br />
+          <small>(<a href="http://www.nicovideo.jp/watch/sm21698433" target="_blank">CLANのチュートリアル動画</a>作りました。<br />この動画での2:00～6:00相当の内容を Kyoto.lisp TT #2 にて実演しました。)</small></div>
         </section>
 
 
@@ -61,7 +61,7 @@
         <ul>
           <li>これは、自分が作った<a target="_blank" href="https://github.com/ayamada/clan">CLAN</a>というもの</li>
           <li class="fragment">CLANは、Android向けアプリ構築キット</li>
-          <li class="fragment">具体的には、Java用のゲーム構築ライブラリである<a target="_blank" href="http://libgdx.badlogicgames.com/">LibGDX</a>と、Java用Lisp処理系であるClojureを一緒に使えるようにしたもの</li>
+          <li class="fragment">大雑把に言うと、Java用のゲーム構築ライブラリである<a target="_blank" href="http://libgdx.badlogicgames.com/">LibGDX</a>と、JVM向けLisp処理系であるClojureを、一緒に使えるようにしたもの</li>
         </ul>
         </section>
 
@@ -78,7 +78,7 @@
         <section>
         <h2>もうちょっと詳しく！</h2>
         <ul>
-          <li>LibGDXは、同じソースから、Javaの動く各デスクトップ向けOS、Android、iOS、html5のそれぞれに対するデプロイができる</li>
+          <li>LibGDXは、同じソースから、JREインストール済のPC(Windows, Mac, Linux, *BSD, etc...)、Android、iOS、html5のそれぞれに対するデプロイができる</li>
           <li>OpenGL(ES)を使って、一枚のスクリーンを毎フレーム更新していくタイプ。<br />各OSの標準のGUI等は基本使わない → ゲーム向き</li>
           <li>他の、Androidデプロイ可能なゲーム用フレームワークよりも速度面で優れている、らしい</li>
           <li>日本語のドキュメントや記事さえあれば日本でももっと流行ると思う</li>
@@ -116,7 +116,7 @@
         <h2>どう解決したの？</h2>
         <p>以下を満たす事で、実機でもフレームレートが改善した<br />(手元の端末ではほぼ60を達成)</p>
         <ul>
-          <li>フレーム毎のrender()メソッド内ではオブジェクト生成をしてはならない。生成するとGCが動いてフレームレート低下</li>
+          <li>フレーム毎のrender()メソッド内ではオブジェクト生成をしてはならない。生成するとGCが動いてフレームレート大幅低下</li>
           <li>外部メソッドおよび関数呼び出しはDalvik VM上ではそこそこのコストがかかる。のでフレーム毎のrender()メソッド内では、可能な限りこれらの回数を少なくする</li>
         </ul>
         <div>↓</div>
