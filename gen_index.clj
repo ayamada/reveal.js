@@ -24,9 +24,14 @@
   (if-not (seq parameters)
     tmpl
     (let [[k v] (first parameters)
-          re (re-pattern (str "(?i)###" (name k) "###"))
+          re (re-pattern (str "(?i)###\\Q" (name k) "\\E###"))
+          data (cond
+                 (string? v) v
+                 (not (coll? v)) (str v)
+                 (not (keyword? (first v))) (apply str (map #(h/html %) v))
+                 :else (h/html v))
           ]
-      (recur (clojure.string/replace tmpl re v) (rest parameters)))))
+      (recur (clojure.string/replace tmpl re data) (rest parameters)))))
 
 (defn- doit [tmpl-path dst-path]
   (let [tmpl (slurp tmpl-path)
