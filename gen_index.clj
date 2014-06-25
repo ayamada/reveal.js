@@ -12,7 +12,7 @@
         ;; TODO: 上記通りの実装を行う
         ]
     {
-     :title "たいとる"
+     :title "たいとるabcABC"
      ;<title>Unity3D内でClojureCLRを動かしてみる</title>
      :content "testだよー"
      }))
