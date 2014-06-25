@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
 
-    <title>Unity3D内でClojureCLRを動かしてみる</title>
+    <title>###TITLE###</title>
 
     <!--
     <meta name="description" content="A framework for easily creating beautiful presentations using HTML">
@@ -50,7 +50,7 @@
       <div class="slides">
 
         <section>
-        <h3>Unity3D内でClojure-CLRを動かしてみる</h3>
+        <h3>###TITLE###</h3>
         <p><small>by <a href="http://tir.jp/">技情研ネット 山田</a><br />at <a href="http://atnd.org/events/52421">大阪でClojure交流会</a> (2014/06/29)<br />(更新日時 2014/06/29)</small></p>
         </section>
 
