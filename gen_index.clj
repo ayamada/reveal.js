@@ -2,20 +2,23 @@
 (require '[hiccup.core :as h])
 
 
-(defn- gen-parameters [tmpl]
-  ;; tmplから「!!!SRC!!!」と「!!!SRC!!!」で囲まれた領域を取得し、
-  ;; load-stringした結果のmapを返す。
+(def re-parameters-src
+  #"(?s)###_CLJSRC_BEGIN_###(.*?)###_CLJSRC_END_###")
+
+(defn- load-parameters [tmpl]
+  ;; tmplから上記正規表現で指示されている領域を取得し、
+  ;; それを load-string した結果のmapを返す。
   ;; (つまり上記で囲まれた領域のコードはmapを返さなければならない)
   ;; 上記コードはそのままテンプレート内に残る為、
   ;; コメントアウト内(つまり「<!-- -->」)に入れておく事。
-  (let [
-        ;; TODO: 上記通りの実装を行う
-        ]
-    {
-     :title "たいとるabcABC"
-     ;<title>Unity3D内でClojureCLRを動かしてみる</title>
-     :content "testだよー"
-     }))
+  (if-let [m (re-find re-parameters-src tmpl)]
+    (let [
+          ;; TODO: 上記通りの実装を行う
+          clj-string (second m)
+          result-map (load-string clj-string)
+          ]
+      result-map)
+    {}))
 
 (defn- apply-parameters-to-tmpl [tmpl parameters]
   (if-not (seq parameters)
@@ -27,7 +30,7 @@
 
 (defn- doit [tmpl-path dst-path]
   (let [tmpl (slurp tmpl-path)
-        parameters (gen-parameters tmpl)
+        parameters (load-parameters tmpl)
         result (apply-parameters-to-tmpl tmpl parameters)
         ]
     (spit dst-path result)))
