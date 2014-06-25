@@ -70,6 +70,7 @@ body {
 
 .reveal a:not(.image):hover {
   color: #71e9f4;
+  text-decoration: underline;
   text-shadow: none;
   border: none; }
 
