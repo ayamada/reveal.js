@@ -153,6 +153,11 @@
   [:span (a "http://japan.unity3d.com/" "Unity3D") "でゲームをつくろう！"]
   [:p "と思った。ある日。"]
   [:p "(Unity3Dはマルチプラットフォームなゲーム開発環境)"]
+  [:p [:small
+       "次回の"
+       (a "http://ahoge.info/" "あほげー")
+       "には、これでブラゲを作って参加する！"
+       ]]
   ;[:div [:img {:src ""}]]
   )
 
@@ -175,15 +180,19 @@
   [:p ".NET上で動くLisp処理系を勝手に動かそう！"])
 
 
-(add-section! "よし！ClojureCLRを動かそう！")
+(add-section!
+  [:span
+   "よし！"
+   (a "https://github.com/clojure/clojure-clr" "ClojureCLR")
+   "を動かそう！"])
 
 
 (add-section!
   "先人を発見"
   [:p (a "https://github.com/nasser/clojure-unity")]
   [:ul
-   [:li "Unityのエディタプラグインとしてきちんと実装されたもの"]
-   [:li "まだ開発中だが、ClojureCLRのコア部分はきちんと動く"]
+   [:li "UnityのエディタプラグインとしてREPLが実装されたもの"]
+   [:li "まだ開発中で動かない部分もあるようだが、" [:br] "ClojureCLRのコア部分はきちんと動く"]
    [:li "これを参考にする！"]
    ])
 
@@ -217,15 +226,21 @@
   "まとめ#2"
   [:ul
    [:li "今のところ、WindowsとMacでのみ動作する事を確認。"]
-   [:li "Web client, Android, iOSではエラーが出てビルドできない(根本的に無理かどうかはもうちょっと調査が必要)"]
+   [:li "Web client, Android, iOSではエラーが出てビルドできない" [:br] "(根本的に無理かどうかはもうちょっと調査が必要)"]
    ])
 
 
 (add-section!
   "まとめ#3"
   [:ul
-   [:li "現状では、ClojureCLRでブラウザゲームは作れない…"]
-   [:li "Oculus Rift DK2が届いてからゲームつくる！"]
+   [:li
+    "現状では、ClojureCLRでブラウザゲームは作れない…"
+    [:br]
+    [:small
+     "これでは、次回の"
+     (a "http://ahoge.info/" "あほげー")
+     "には使えないではないか…"]]
+   [:li "Oculus Rift DK2が届いてからゲームつくる事にする！"]
    ])
 
 
@@ -244,6 +259,21 @@
     (a "http://vnctst.tir.jp/kyotolisp-clan/" "昔のスライド")
     "もあります"]
    ])
+
+
+(add-section!
+  "提供"
+  "このスライドを発表した「"
+  (a "http://atnd.org/events/52421" "大阪でClojure交流会")
+  "」は、"
+  [:br]
+  (a "http://nyampass.com/" "ニャンパス株式会社")
+  "の提供でお送りしました。"
+  [:br]
+  [:small "どうもありがとうございました！"]
+  [:div [:img {:src "nyampass.png"}]]
+  [:small "サインもらった！"]
+  )
 
 
 
