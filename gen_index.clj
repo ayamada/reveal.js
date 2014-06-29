@@ -26,6 +26,7 @@
     (let [[k v] (first parameters)
           re (re-pattern (str "(?i)###\\Q" (name k) "\\E###"))
           data (cond
+                 (nil? v) ""
                  (string? v) v
                  (not (coll? v)) (str v)
                  (not (keyword? (first v))) (apply str (map #(h/html %) v))

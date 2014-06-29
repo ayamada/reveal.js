@@ -100,46 +100,150 @@
 <!--
 ###_CLJSRC_BEGIN_###
 
-(defn section [heading content]
+(defn section [heading & [content]]
   [:section
    [:h2 heading]
-   [:div content]])
+   (if (seq content) [:div content] "")])
 (def sections (atom []))
-(defn add-section! [heading content]
-  (swap! sections conj (section heading content)))
+(defn add-section! [heading & contents]
+  (swap! sections conj (section heading contents)))
 
-(def title "Unity3D内でClojureCLRを動かしてみる")
+(defn a [url & [label]]
+  (let [label (or label url)]
+    [:a {:href url :target "_blank"} label]))
+
+
+
+
+
+
+(def title "Unity3D内でClojureCLRを動かす")
 (def title-at
   [:small
    "by"
-   " "
-   [:a {:href "http://tir.jp/"} "技情研ネット 山田"]
+   "　"
+   (a "http://tir.jp/" "技情研ネット　山田")
    [:br]
-   "at "
-   [:a {:href "http://atnd.org/events/52421"} "大阪でClojure交流会"]
-   " "
+   "at"
+   "　"
+   (a "http://atnd.org/events/52421" "大阪でClojure交流会")
+   "　"
    "(2014/06/29)"
    [:br]
-   "(更新日時 2014/06/29)"
+   "(更新日時　2014/06/29)"
    ])
 
-(add-section!
-  "あいうえお"
-  [:p "ほげー"])
 
 (add-section!
-  "かきくけこ"
-  [:p "ほげー22222"])
+  "自己紹介"
+  [:ul
+   [:li "山田です"]
+   [:li "フリーランスです"]
+   [:li (a "http://vnctst.tir.jp/"
+           "Clojureでゲームとか作ってます")]
+   ]
+  [:div (map
+          (fn [i] [:img {:src i}])
+          ["op0001_2-300x178.png"
+           "op0003_3-300x178.png"
+           "op0004_2-300x178.png"])])
+
 
 (add-section!
-  "さしすせそ"
-  [:p "33"])
+  [:span (a "http://japan.unity3d.com/" "Unity3D") "でゲームをつくろう！"]
+  [:p "と思った。ある日。"]
+  [:p "(Unity3Dはマルチプラットフォームなゲーム開発環境)"]
+  ;[:div [:img {:src ""}]]
+  )
 
 
+(add-section!
+  "Unity3Dで使える言語"
+  [:ol
+   [:li "C#"]
+   [:li "UnityScript (JavaScript風言語)"]
+   [:li "Boo (Python風言語)"]])
 
 
+(add-section!
+  "Lispがないじゃないの！"
+  [:p "俺にLispを使わせろ！"])
 
 
+(add-section!
+  "Unity3Dの内部はMono(.NET)"
+  [:p ".NET上で動くLisp処理系を勝手に動かそう！"])
+
+
+(add-section! "よし！ClojureCLRを動かそう！")
+
+
+(add-section!
+  "先人を発見"
+  [:p (a "https://github.com/nasser/clojure-unity")]
+  [:ul
+   [:li "Unityのエディタプラグインとしてきちんと実装されたもの"]
+   [:li "まだ開発中だが、ClojureCLRのコア部分はきちんと動く"]
+   [:li "これを参考にする！"]
+   ])
+
+
+(add-section!
+  "更に調査と試行錯誤"
+  [:p "詳細については後述のメモ参照"])
+
+
+(add-section!
+  "できた！"
+  [:p "(実演タイム)"])
+
+
+(add-section!
+  "やりかた"
+  [:p
+   (a "http://doc.tir.ne.jp/devel/misc/unity/clojure" "まとめページ")
+   "に手順などを書いた、やってみたい方はどうぞ"])
+
+
+(add-section!
+  "まとめ#1"
+  [:ul
+   [:li "とりあえず動いた！"]
+   [:li "実行速度がどうとかはまだ未測定"]
+   ])
+
+
+(add-section!
+  "まとめ#2"
+  [:ul
+   [:li "今のところ、WindowsとMacでのみ動作する事を確認。"]
+   [:li "Web client, Android, iOSではエラーが出てビルドできない(根本的に無理かどうかはもうちょっと調査が必要)"]
+   ])
+
+
+(add-section!
+  "まとめ#3"
+  [:ul
+   [:li "現状では、ClojureCLRでブラウザゲームは作れない…"]
+   [:li "Oculus Rift DK2が届いてからゲームつくる！"]
+   ])
+
+
+(add-section!
+  "おしまい"
+  [:ul
+   [:li
+    "続きは"
+    (a "http://doc.tir.ne.jp/devel/misc/unity/clojure" "まとめページ")
+    "で！"]
+   [:li
+    "よかったら"
+    (a "http://vnctst.tir.jp/" "自作ゲーム")
+    "も見てみてね"]
+   [:li
+    (a "http://vnctst.tir.jp/kyotolisp-clan/" "昔のスライド")
+    "もあります"]
+   ])
 
 
 
