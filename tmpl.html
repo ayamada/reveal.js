@@ -117,7 +117,8 @@
 
 
 
-(def title "Unity3D内でClojureCLRを動かす")
+(def title "タイトル未定")
+
 (def title-at
   [:small
    "by"
@@ -126,154 +127,146 @@
    [:br]
    "at"
    "　"
-   (a "http://atnd.org/events/52421" "大阪でClojure交流会")
+   (a "http://e6a302c89833f490f111a94ebc.doorkeeper.jp/events/17230"
+      "烏丸 Clojure")
    "　"
-   "(2014/06/29)"
+   "(2014/11/15)"
    [:br]
-   "(更新日時　2014/06/29)"
+   "(更新日時　2014/11/15)"
    ])
 
 
 (add-section!
-  "自己紹介"
+  "今日の内容"
+  [:p "cljsでゲームつくったので、それに関連する雑多な話"]
+  [:div.left "つくったゲーム"]
   [:ul
-   [:li "山田です"]
-   [:li "フリーランスです"]
-   [:li (a "http://vnctst.tir.jp/"
-           "Clojureでゲームとか作ってます")]
-   ]
-  [:div (map
-          (fn [i] [:img {:src i}])
-          ["op0001_2-300x178.png"
-           "op0003_3-300x178.png"
-           "op0004_2-300x178.png"])])
-
-
-(add-section!
-  [:span (a "http://japan.unity3d.com/" "Unity3D") "でゲームをつくろう！"]
-  [:p "と思った。ある日。"]
-  [:p "(Unity3Dはマルチプラットフォームなゲーム開発環境)"]
-  [:p [:small
-       "次回の"
-       (a "http://ahoge.info/" "あほげー")
-       "には、これでブラゲを作って参加する！"
-       ]]
-  ;[:div [:img {:src ""}]]
+   [:li
+    (a "http://www.nicovideo.jp/watch/sm24628600" "AstroCats")
+    " - Clojure Cup 2014にて、Xcoo-Bravoチームで作成(cljsの半分ぐらい担当)"]
+   [:li
+    (a "http://vnctst.tir.jp/op0008/" "トミーパトロール")
+    " - あほげー第15回にて、一日半ぐらいで作成"]]
   )
 
 
 (add-section!
-  "Unity3Dで使える言語"
-  [:ol
-   [:li "C#"]
-   [:li "UnityScript (JavaScript風言語)"]
-   [:li "Boo (Python風言語)"]])
+  [:span "ぶっちゃけcljsって" [:br] "使い物になるの？"]
+  [:ul [:li
+        "いわゆる「matureなレベル」かというと「そうではない」。"
+        [:br]
+        "バージョンも「0.0-XXXX」みたいになってる。0.1ですらない。"
+        [:br]
+        "しかし、不具合を避ければ、使えなくはないレベル。"
+        ]])
 
 
 (add-section!
-  "Lispがないじゃないの！"
-  [:p "俺にLispを使わせろ！"])
-
-
-(add-section!
-  "Unity3Dの内部はMono(.NET)"
-  [:p ".NET上で動くLisp処理系を勝手に動かそう！"])
-
-
-(add-section!
-  [:span
-   "よし！"
-   (a "https://github.com/clojure/clojure-clr" "ClojureCLR")
-   "を動かそう！"])
-
-
-(add-section!
-  "先人を発見"
-  [:p (a "https://github.com/nasser/clojure-unity")]
-  [:ul
-   [:li "UnityのエディタプラグインとしてREPLが実装されたもの"]
-   [:li "まだ開発中で動かない部分もあるようだが、" [:br] "ClojureCLRのコア部分はきちんと動く"]
-   [:li "これを参考にする！"]
-   ])
-
-
-(add-section!
-  "更に調査と試行錯誤"
-  [:p "詳細については後述のメモ参照"])
-
-
-(add-section!
-  "できた！"
-  [:p "(実演タイム)"])
-
-
-(add-section!
-  "やりかた"
+  [:span "じゃあ具体的には、" [:br] "どの辺に問題があるの？"]
+  [:p "あちこち。全体的に枯れてない。"]
   [:p
-   (a "http://doc.tir.ne.jp/devel/misc/unity/clojure" "まとめページ")
-   "に手順などを書いた、やってみたい方はどうぞ"])
+   (a "http://doc.tir.ne.jp/misc/karasumaclj/cljs" "別ページ")
+   "にまとめた。"])
 
 
 (add-section!
-  "まとめ#1"
-  [:ul
-   [:li "とりあえず動いた！"]
-   [:li "実行速度がどうとかはまだ未測定"]
+  "これは大変だ！"
+  [:p
+   "たくさんの「つまづき」があるので、cljsを利用する際には、"
+   "それらを回避していかなくてはならない。めんどい"])
+
+
+(add-section!
+  "他の選択肢はないの？"
+  [:p "Lispにこだわらなければ、altJSから好きな実装を選べばok"]
+  [:p
+   "Lisperであれば"
+   (a "http://www.biwascheme.org/" "BiwaScheme")
+   "も良い選択肢"]
+  [:p "でもまあ今日はClojureのイベントなので…"]
+  )
+
+
+(add-section!
+  "ゲームを作るには"
+  [:p "例外はあるが、ゲームは大体以下ができる"]
+  [:ol
+   [:li "絵が出る"]
+   [:li "音が出る"]
+   [:li "操作できる"]]
+  [:p
+   "ブラウザゲームの場合はマウスで操作する関係上、"
+   "(1)の「絵」と(3)の「操作」がセットになっている事が多い"]
+  )
+
+
+(add-section!
+  "絵"
+  [:p
+   "HTMLのcanvasタグ、もしくはWebGLを使う。詳細はぐぐる"
+   [:br]
+   "これらをいじるには、対応するJSライブラリを使うのが楽"
+   [:br]
+   "また、そういうライブラリには操作系の機能もついている事が多い"
    ])
 
 
 (add-section!
-  "まとめ#2"
-  [:ul
-   [:li "今のところ、WindowsとMacでのみ動作する事を確認。"]
-   [:li "Web client, Android, iOSではエラーが出てビルドできない" [:br] "(根本的に無理かどうかはもうちょっと調査が必要)"]
+  "音"
+  [:p
+   "HTMLのaudioタグ、もしくはWebAudioを使う。詳細はぐぐる。"
+   [:br]
+   "これも直にいじるよりも、対応するJSライブラリを使うのが楽"
+   [:br]
+   "なお、モバイルブラウザでの対応に色々と問題がある為、"
+   "モバイルでは音を出さないように制御した方がよいかも"
    ])
 
 
 (add-section!
-  "まとめ#3"
-  [:ul
+  "JSライブラリ選択"
+  [:p
+   "試してみたライブラリの雑感を"
+   (a "http://doc.tir.ne.jp/misc/karasumaclj/js-libraries" "別ページ")
+   "にまとめた"]
+  [:p "長いので、興味がなければ飛ばしてok"])
+
+
+(add-section!
+  "project.cljの書き方"
+  [:p
+   "これまた"
+   (a "http://doc.tir.ne.jp/misc/karasumaclj/project.clj" "別ページ")
+   "にまとめた"])
+
+
+(add-section!
+  "ゲームつくる"
+  [:ol
+   [:li "コンソールを複数開いておく"]
+   [:li [:code "lein ring server-headless"] [:br] "でhttpサーバを起動"]
    [:li
-    "現状では、ClojureCLRでブラウザゲームは作れない…"
+    [:code "lein cljsbuild clean && lein cljsbuild auto dev"]
     [:br]
-    [:small
-     "これでは、次回の"
-     (a "http://ahoge.info/" "あほげー")
-     "には使えないではないか…"]]
-   [:li "Oculus Rift DK2が届いてからゲームつくる事にする！"]
+    "で自動ビルドプロセスを起動"]
+   [:li "コードを書いてはブラウザで動作確認。REPLはいい奴がまだない"]
+   [:li
+    "マクロ追加したり等するタイミングでビルドプロセスが"
+    "おかしくなる事があるので、たまに上記プロセス群を再起動する"]
    ])
+
+
+(add-section!
+  "以上"
+  [:p "とりあえず大体こんな感じ"]
+  [:p "他に「この部分どうやってるの」とかあれば、山田に直接聞く！"]
+  )
 
 
 (add-section!
   "おしまい"
-  [:ul
-   [:li
-    "続きは"
-    (a "http://doc.tir.ne.jp/devel/misc/unity/clojure" "まとめページ")
-    "で！"]
-   [:li
-    "よかったら"
-    (a "http://vnctst.tir.jp/" "自作ゲーム")
-    "も見てみてね"]
-   [:li
-    (a "http://vnctst.tir.jp/kyotolisp-clan/" "昔のスライド")
-    "もあります"]
-   ])
+  [:p "クソゲーができても泣かない"])
 
-
-(add-section!
-  "提供"
-  "このスライドを発表した「"
-  (a "http://atnd.org/events/52421" "大阪でClojure交流会")
-  "」は、"
-  [:br]
-  (a "http://nyampass.com/" "ニャンパス株式会社")
-  "の提供でお送りしました。"
-  [:br]
-  [:small "どうもありがとうございました！"]
-  [:div [:img {:src "nyampass.png"}]]
-  [:small "サインもらった！"]
-  )
 
 
 
