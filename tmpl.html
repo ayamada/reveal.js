@@ -192,19 +192,30 @@
     "それらを回避していかなくてはならない。めんどい"]
    [:li
     "とは言え、前述の問題点以外は大体それなりに動くし、"
-    "生のJSを書くよりずっと良い"]
+    "Clojureを書くのに慣れている人にとっては、"
+    "生のJSを書くよりもずっと良い"]
    ])
 
 
 (add-section!
   "他の選択肢はないの？"
   [:ul
-   [:li "別にLispにこだわりがなければ、altJSから好きな実装を選べばok"]
    [:li
-    "Lisperであれば"
-    (a "http://www.biwascheme.org/" "BiwaScheme")
-    "も良い選択肢"]
-   [:li "今日はClojureのイベントなので、この辺の詳細は省略"]
+    "Clojureにこだわらなければ、単にaltJSから好きな実装を選べばok"
+    [:ul [:li
+          "ちなみにLisperであれば"
+          (a "http://www.biwascheme.org/" "BiwaScheme")
+          "も良い選択肢"]]]
+   [:li
+    "ブラゲにこだわらなければ、"
+    "Clojure用のゲーム作成ライブラリはそれなりにある"
+    [:ul
+     [:li (a "https://github.com/oakes/play-clj" "play-clj")]
+     [:li (a "https://github.com/arcadia-unity/arcadia" "Arcadia")]]
+    "(これらの詳細や品質については、各自で確認してね)"]
+   [:li
+    "しかし、「Clojure」かつ「ブラゲ」の両方を満たすものは、"
+    "現状ではcljsしかない、という結論になった"]
    ])
 
 
@@ -277,7 +288,7 @@
 (add-section!
   "以上"
   [:p "とりあえず大体こんな感じ"]
-  [:p "他に「この部分どうやってるの」とかあれば、山田に直接聞く！"]
+  [:p "他に「この部分どうやってるの」とか疑問あれば、山田に直接聞く！"]
   )
 
 
