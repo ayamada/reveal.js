@@ -112,12 +112,20 @@
   (let [label (or label url)]
     [:a {:href url :target "_blank"} label]))
 
+(defn h3 [& texts] `[:h3 ~@texts])
+(defn p [& texts] `[:p ~@texts])
+(defn span [& texts] `[:span ~@texts])
+
+(defn- lis [k items]
+  `[~k ~@(map (fn [item] [:li item])
+               items)])
+(defn ul [& items] (lis :ul items))
+(defn ol [& items] (lis :ol items))
 
 
 
 
-
-(def title "cljsでブラゲはつくれる")
+(def title "タイトル未定")
 
 (def title-at
   [:small
@@ -127,176 +135,128 @@
    [:br]
    "at"
    "　"
-   (a "http://e6a302c89833f490f111a94ebc.doorkeeper.jp/events/17230"
-      "烏丸 Clojure")
+   (a "http://e6a302c89833f490f111a94ebc.doorkeeper.jp/events/20521"
+      "ATC Clojure")
    "　"
-   "(2014/11/15)"
+   "(2015/02/21)"
    ;[:br]
-   ;"(更新日時　2014/11/15)"
+   ;"(更新日時　2015/02/21)"
    ])
 
 
 (add-section!
-  "今日の内容"
-  [:p "cljsでブラウザゲーム(ブラゲ)つくったので、それに関連する雑多な話"]
-  [:div.left "つくったゲーム"]
-  [:ul
-   [:li
-    (a "http://astrocats.net/" "AstroCats")
-    [:ul
-     [:li
-      "Clojure Cup 2014にて、Xcoo-Bravoチームでの作成"
-      [:br]
-      "(自分はcljs部分の半分ぐらい担当)"]
-     [:li
-      (a "https://speakerdeck.com/federkasten/clojure-cup-for-xcoo-inc" "詳細")
-      " (Clojure夜会での青木さんのスライド)"]
-     [:li
-      (a "http://www.nicovideo.jp/watch/sm24628600" "BOXPさんによるプレイ動画")
-      " (ニコ動)"]
-     [:li
-      (a "https://xcoo.co.jp/" "株式会社テンクー")
-      "についてはこのURL参照"]]]
-   [:li
-    (a "http://vnctst.tir.jp/op0008/" "トミーパトロール")
-    [:ul [:li "あほげー第15回にて、一日半ぐらいで作成"]]]]
-  )
+  "山田の現状"
+  (ul (span "ブラゲ(ブラウザゲーム)は作ろうと思うが、"
+            "普通のwebアプリを作る気が全くしない")))
 
 
 (add-section!
-  [:span "ぶっちゃけcljsって" [:br] "使い物になるの？"]
-  [:ul
-   [:li "いわゆる「matureなレベル」かというと「そうではない」"]
-   [:li "バージョンも「0.0-XXXX」みたいになってる。0.1ですらない"]
-   [:li "とは言え、コンパイルされたJS自体は問題なく動作する。この意味では「実用上は問題ない」とは言える"]
-   [:li "ただし、色々と存在する不具合を避ける必要はある。これがめんどい"]
-   ])
+  "なんでか"
+  (ul "domいじりをしたくない！"
+      "domは様々なバッドノウハウが濃縮されている"
+      "バッドノウハウに衝突しては迂回する作業の連続"
+      "めんどくさすぎる"))
 
 
 (add-section!
-  [:span "具体的にはどの辺に" [:br] "問題があるの？"]
-  [:ul
-   [:li "あちこち。全体的に枯れてない"]
-   [:li
-    "とりあえず思い付いた部分を"
-    (a "http://doc.tir.ne.jp/misc/karasumaclj/cljs" "別ページ")
-    "にまとめた"]
-   ])
+  "じゃあ、どうするか(結論)"
+  (ul "なるべくwebアプリは作らない"
+      (span "あと数年もすれば、domいじりをしなくてすむフレームワークが"
+            "枯れてくると思うので、webアプリ作成を再開するのはその後にする")
+      (span "どうしてもwebアプリを作る必要のある場合はブラゲと同じように、"
+            "canvasベースにする")))
 
 
 (add-section!
-  "これは大変だ！"
-  [:ul
-   [:li
-    "たくさんの「つまづき」があるので、cljsを利用する際には、"
-    "それらを回避していかなくてはならない。めんどい"]
-   [:li
-    "とは言え、前述の問題点以外は大体それなりに動くし、"
-    "Clojureを書くのに慣れている人にとっては、"
-    "生のJSを書くよりもずっと良い"]
-   ])
+  "しかし"
+  (ul "これが仕事になってしまうと、そうも言ってられない"
+      "現在できる内容で作る、しかない"))
 
 
 (add-section!
-  "他の選択肢はないの？"
-  [:ul
-   [:li
-    "Clojureにこだわらなければ、単にaltJSから好きな実装を選べばok"
-    [:ul [:li
-          "ちなみにLisperであれば"
-          (a "http://www.biwascheme.org/" "BiwaScheme")
-          "も良い選択肢"]]]
-   [:li
-    "ブラゲにこだわらなければ、"
-    "Clojure用のゲーム作成ライブラリはそれなりにある"
-    [:ul
-     [:li (a "https://github.com/oakes/play-clj" "play-clj")]
-     [:li (a "https://github.com/arcadia-unity/arcadia" "Arcadia")]]
-    "(これらの詳細や品質については、各自で確認してね)"]
-   [:li
-    "しかし、「Clojure」かつ「ブラゲ」の両方を満たすものは、"
-    "現状ではcljsしかない、という結論になった"]
-   ])
+  "作った"
+  (ul (span (a "https://xcoo.co.jp/" "株式会社テンクー")
+            "にて、いくつかの案件の管理画面のフロントエンドをcljsで書いた")
+      (span "内容的には "
+            (a "https://github.com/ibdknox/crate" "crate")
+            ", "
+            (a "https://github.com/levand/domina" "domina")
+            ", "
+            (a "https://github.com/clojure/core.async" "core.async")
+            ", "
+            (a "https://github.com/JulianBirch/cljs-ajax" "cljs-ajax")
+            " あたりを使った、よくある管理画面")))
 
 
 (add-section!
-  "ブラゲを作るには"
-  [:p "例外はあるが、ゲームは大体以下ができる"]
-  [:ol
-   [:li "絵が出る"]
-   [:li "音が出る"]
-   [:li "操作できる"]]
-  [:p
-   "ブラゲの場合はマウスで操作する関係上、"
-   "(1)の「絵」と(3)の「操作」がセットになっている事が多い"]
-  )
+  "問題点#1"
+  (h3 "メモリリークになりやすい")
+  (ul (span "domのメモリリークについては有名な話なので、知らない人は "
+            (a "http://steps.dodgson.org/b/2012/12/19/dom-and-gc-or-what-happend-at-eden/")
+            " あたりを参照")
+      "これは別にcljs固有の問題じゃないので詳細は省略"
+      (span "とは言え実際のところは、ちょっとぐらいリークしても"
+            "ページ移動すれば元に戻るので、大きな問題にはならない事が大半")))
 
 
 (add-section!
-  "絵"
-  [:ul
-   [:li "HTMLのcanvasタグ、もしくはWebGLを使う。詳細はぐぐる"]
-   [:li "これらをいじるには、対応するJSライブラリを使うのが楽"]
-   [:li "また、そういうライブラリには操作系の機能もついている事が多い"]
-   ])
+  "問題点#2"
+  (h3 "初期化が重い")
+  (ul "cljsで生成されるjsファイルのロードと初期化にコストがかかる"
+      "これはcljs固有の問題なので、ちょっと具体的に説明"))
 
 
 (add-section!
-  "音"
-  [:ul
-   [:li "HTMLのaudioタグ、もしくはWebAudioを使う。詳細はぐぐる"]
-   [:li "これも直にいじるよりも、対応するJSライブラリを使うのが楽"]
-   [:li
-    "なお、モバイルブラウザでの対応に色々と問題がある為、"
-    "モバイルでは音を出さないように制御した方がよいかも"]
-   ])
+  "具体的には"
+  (p "ページ移動があるたびに初期化が走り、快適でない")
+  (ul (span "例えば " (a "http://www.core-async.info/"))
+      (span "ページ移動するたびに「"
+            [:code "Please wait, loading page…"]
+            "」が出る")
+      (str "トップはそれほどでもないが、"
+           "リファレンスページはデータ量が多いせいか、非常に待たされる")
+      "ページ移動が頻繁だと割とストレス"))
 
 
 (add-section!
-  "JSライブラリ選択"
-  [:p
-   "試してみたライブラリの雑感を"
-   (a "http://doc.tir.ne.jp/misc/karasumaclj/js-libraries" "別ページ")
-   "にまとめた"]
-  [:p "長いので、興味がなければ飛ばしてok"])
+  "どうすればいいか"
+  (p "ページ移動してもcljsの初期化が走らないようにすればよい"))
 
 
 (add-section!
-  "project.cljの書き方"
-  [:p
-   "これまた"
-   (a "http://doc.tir.ne.jp/misc/karasumaclj/project.clj" "別ページ")
-   "にまとめた"])
+  "具体的には"
+  (h3 "「#/hoge」を使う")
+  (ul (span "例えば " (a "https://clojurecup.com/"))
+      (span "リンク類は普通にあるが、すべてfragment形式(「#/rules」等)")
+      (span "これはブラウザからはページ内リンクとして認識されるので、"
+            "cljsの初期化は発生しない")))
 
 
 (add-section!
-  "ブラゲつくる"
-  [:ol
-   [:li "コンソールを複数開いておく"]
-   [:li [:code "lein ring server-headless"] [:br] "でhttpサーバを起動"]
-   [:li
-    [:code "lein cljsbuild clean && lein cljsbuild auto dev"]
-    [:br]
-    "で自動ビルドプロセスを起動"]
-   [:li "コードを書いてはブラウザで動作確認。REPLはいい奴がまだない"]
-   [:li
-    "マクロ追加したり等するタイミングでビルドプロセスが"
-    "おかしくなる事があるので、たまに上記プロセス群を再起動する"]
-   ])
+  "じゃあ、そうしよう！"
+  (ul "そうすると、問題点#1がまたやってくる"
+      "ページ移動がなくなるという事は、メモリリークが大きな問題に"
+      "適当に書いてもリークしないようなフレームワークが望まれる"
+      (span "「リークしないようにするには、こう書きます」"
+            "というバッドノウハウを集める作業はやりたくない")))
 
 
 (add-section!
-  "以上"
-  [:p "とりあえず大体こんな感じ"]
-  [:p "他に「この部分どうやってるの」とか疑問あれば、山田に直接聞く！"]
-  )
+  "結果として"
+  (ul "最初に書いた結論の内容となった"
+      (span "canvasベースのゲーム/アプリであれば、"
+            "とりあえずdom由来のリークは起こりにくいし、"
+            "ページ移動もない")
+      "でも未来はきっと明るい(筈)"
+      ))
 
 
 (add-section!
   "おしまい"
-  [:p "クソゲーができても泣かない"])
+  [:p "あんまり前向きな話じゃなくてすいません"])
 
 
+;;; NB: ここまで書いたものの、どうも前向きな内容じゃないので、一旦破棄する事に
 
 
 
