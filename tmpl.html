@@ -127,6 +127,12 @@
 
 
 (def title "cljsでwebアプリを書く際の問題点")
+(def public-date "2015/02/21")
+(def update-date "2015/02/23")
+
+
+
+
 
 (def title-at
   [:small
@@ -139,9 +145,9 @@
    (a "http://e6a302c89833f490f111a94ebc.doorkeeper.jp/events/20521"
       "ATC Clojure")
    "　"
-   "(2015/02/21)"
-   ;[:br]
-   ;"(更新日時　2015/02/21)"
+   "(" public-date ")"
+   [:br]
+   "(更新日時　" update-date ")"
    ])
 
 
@@ -330,6 +336,19 @@
 (add-section!
   "おしまい"
   (p "あんま具体的な話でなくてすいません"))
+
+
+(add-section!
+  "その後"
+  (ul (span "このスライド発表後に、"
+            (a "https://github.com/Flipboard/react-canvas" "react-canvas")
+            "を"
+            (a "https://twitter.com/tnoda_" "@tnoda_")
+            "さんに教えてもらった")
+      (span "canvas上に仮想domを描画するらしい")
+      (span "文字列のコピペができない等の欠点はありそうだけど、"
+            "悪くはなさそうな雰囲気なので、後で試してみたい")
+      ))
 
 
 
