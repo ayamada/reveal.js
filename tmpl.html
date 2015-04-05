@@ -123,12 +123,14 @@
 (defn ul [& items] (lis :ul items))
 (defn ol [& items] (lis :ol items))
 
+(defn strong [& texts] `[:strong ~@texts])
+(defn strong-code [code] [:strong {:style "color:#7FFF7F"} [:code code]])
 
 
 
-(def title "cljsでwebアプリを書く際の問題点")
-(def public-date "2015/02/21")
-(def update-date "2015/02/23")
+(def title "project.clj 最強伝説")
+(def public-date "2015/04/09")
+(def update-date "2015/04/09")
 
 
 
@@ -142,8 +144,8 @@
    [:br]
    "at"
    "　"
-   (a "http://e6a302c89833f490f111a94ebc.doorkeeper.jp/events/20521"
-      "ATC Clojure")
+   (a "https://e6a302c89833f490f111a94ebc.doorkeeper.jp/events/23204"
+      "第2回 gen-class 勉強会")
    "　"
    "(" public-date ")"
    [:br]
@@ -152,203 +154,126 @@
 
 
 (add-section!
-  "山田の近況"
-  (ul (span (a "https://xcoo.co.jp/" "株式会社テンクー") "にて、"
-            "管理画面のフロントエンドをcljsで書く仕事(Clojure仕事！)を"
-            "何件かやらせていただいた")))
-
-(add-section!
-  "どんな感じ？"
-  (ul (span "管理画面の内容は、"
-            (a "https://github.com/ibdknox/crate" "crate")
-            "と"
-            (a "https://github.com/levand/domina" "domina")
-            "でdomの生成と操作を行い、"
-            (a "https://github.com/clojure/core.async" "core.async")
-            "でコールバック地獄を避けつつ、"
-            (a "https://github.com/JulianBirch/cljs-ajax" "cljs-ajax")
-            "でサーバサイドのclj部と通信する、みたいな感じ")))
-
-(add-section!
-  "そこで"
-  (ul (span "自分が感じた"
-            "「cljsでwebアプリを書く際の問題点」"
-            "をまとめてみた")))
+  "本日の内容"
+  (ol "project.clj に変数を埋め込もう"
+      "project.clj からエントリを取り出そう"
+      "応用"))
 
 (add-section! nil)
 
 (add-section!
-  "問題点#1"
-  (h3 "dom操作が厄介")
-  (ul (span "cljs固有の問題ではないけれど、厄介なものは厄介")
-      (span "dom操作は種々のバッドノウハウの塊であり、"
-            "昔から各種様々なdom操作用フレームワークが作られてきた"
-            [:br]
-            "(要はjQuery等のジャンル)")))
+  "よくあるケース1"
+  [:pre
+   [:code.clojure
+    "
+    (defproject hoge/fuga \"0.1.0-SNAPSHOT\"
+      ...
+      :cljsbuild {:builds {:prod {...
+                                  :compiler {...
+                                             :foreign-libs [...]
+                                             ...}}
+                           :dev {...
+                                 :compiler {...
+                                            :foreign-libs [...]
+                                            ...}}}})
+    "]]
+  (ul (span "二つの" (strong-code ":foreign-libs") "の内容が同じ時")
+      (span "変更時に両方いじるのめんどい")))
 
 (add-section!
-  "dom操作用フレームワーク？"
-  (ul (span "先に挙げた"
-            (a "https://github.com/levand/domina" "domina")
-            "もdom操作用ライブラリ")
-      (span "dominaはdom本体に由来する各種の問題点への対応がいまいちで、"
-            "バッドノウハウへの対応作業がそこそこ必要")))
+  (span (strong "project.clj") "に" [:br] "変数を埋め込もう"))
 
 (add-section!
-  "で"
-  (ul (span "dom回りのバッドノウハウを吸収してくれる、"
-            "もっと良いフレームワークが欲しい")
-      (span "(これには更に条件があり、また後で述べる)")))
+  "こうする"
+  [:pre
+   [:code.clojure
+    "
+    (def foreign-libs [...])
+    (defproject hoge/fuga \"0.1.0-SNAPSHOT\"
+      ...
+      :cljsbuild {:builds {:prod {...
+                                  :compiler {...
+                                             :foreign-libs ~foreign-libs
+                                             ...}}
+                           :dev {...
+                                 :compiler {...
+                                            :foreign-libs ~foreign-libs
+                                            ...}}}})
+    "]])
+
+(add-section!
+  "解説"
+  (ul (span [:code "project.clj"] "内には普通にclojureコードを書ける")
+      (span [:code "defproject"] "内では"
+            "「" (strong-code "~") "」"
+            "(つまり"
+            (a "http://clojuredocs.org/clojure.core/unquote" [:code "unquote"])
+            ")"
+            "は特別扱いされ、これを使ってclojure式を埋め込める")
+      (span "これは"
+            (a "https://github.com/technomancy/leiningen/blob/286bc3f034e322f91be2a59cc970da49badd08ac/sample.project.clj#L12" "leiningenのproject.cljのサンプル")
+            "にも記載されている正式な機能。"
+            "ただし、この埋め込み処理を担当している"
+            (a "https://github.com/technomancy/leiningen/blob/ff84da697249184874b528950048981621ac0b61/leiningen-core/src/leiningen/core/project.clj#L174" [:code "leiningen.core.project/unquote-project"])
+            "のところに以下のコメントがあったので、lein3系ではインターフェース変わりそう"))
+  [:blockquote {:cite "https://github.com/technomancy/leiningen/blob/ff84da697249184874b528950048981621ac0b61/leiningen-core/src/leiningen/core/project.clj#L174"}
+   "TODO: drop this and use read-eval syntax in 3.0"])
 
 (add-section! nil)
 
 (add-section!
-  "問題点#2"
-  (h3 "cljsの初期化が重い")
-  (ul (span "cljsでコンパイルしたjsファイルはサイズが大きく、"
-            "そのロードに結構なコストがかかる")))
+  "この前作ったブラゲ"
+  [:div [:img {:src "ss1.jpg"}]])
 
 (add-section!
-  "ページのロード"
-  (ul (span "ページ移動のないwebアプリなら大した問題ではないが、"
-            "複数ページを持つwebアプリだとページ移動ごとに"
-            "cljsの初期化(ロード)が発生し、そこそこストレスになる")))
+  "拡大"
+  [:div [:img {:src "ss2.jpg"}]])
 
 (add-section!
-  "対策"
-  (ul (span "例えば " (a "https://clojurecup.com/"))
-      (span "リンク類は普通にあるが、すべてfragment形式(「#/rules」等)")
-      (span "これはブラウザからはページ内リンクとして認識されるので、"
-            "リンクをクリックして移動しても、cljsの初期化は実行されない")
-      (span "しかし、これはこれで別の問題がある(また後述)")))
+  "よくあるケース2"
+  [:div [:img {:src "ss3.jpg"}]]
+  (ul (span "バージョン番号やartifactId等を埋め込みたい")))
+
+(add-section!
+  (span (strong "project.clj") "から" [:br] "エントリを取り出そう"))
+
+(add-section!
+  "ぐぐる"
+  (ul (span (a "http://stackoverflow.com/questions/16270805/how-to-get-the-version-of-the-current-clojure-project-in-the-repl" "stackoverflowの質問") "が見付かる")
+      (span (strong-code "(-> \"project.clj\" slurp read-string)") "で取るか、")
+      (span (strong-code "(leiningen.core.project/read)") "で取るか、との事")
+      (span "前者はproject.clj内に" (strong-code "defproject") "以外を書くと"
+            "上手く動かなくなる")
+      (span "後者はcljsに埋め込む際に色々と問題があった")))
+
+(add-section!
+  "結果"
+  (ul (span "後者をベースに、取得処理を改善したものを作った")
+      (span (a "https://github.com/ayamada/project-clj") " に置いた")
+      (span "これでproject.clj内のエントリを"
+            "簡単に参照できるようになった")))
 
 (add-section! nil)
 
-(add-section!
-  "問題点#3"
-  (h3 "メモリリーク")
-  (ul (span "domは非常にメモリリークを起こしやすい")
-      (span (a "http://steps.dodgson.org/b/2012/12/19/dom-and-gc-or-what-happend-at-eden/")
-            " あたりが詳しい(数年前の記事だが)")))
+(add-section! "応用")
 
 (add-section!
-  "しかし"
-  (ul (span "通常であれば、"
-            "ちょっとぐらいリークしてもページ移動すれば解放されるので、"
-            "大きな問題にはなるケースは少ない")))
-
-(add-section!
-  "だが"
-  (ul (span "先に書いていた「cljsの初期化が重い」問題を解決しようとして"
-            "ページ移動をfragment形式にすると、"
-            "ページ移動に伴う解放がなくなる")
-      (span "その結果、dom由来のメモリリークが解放されず蓄積していく事に")))
-
-(add-section! nil)
-
-(add-section!
-  "じゃあ、どうするか"
-  (ul (span "対策を色々と検討した")))
-
-(add-section!
-  "解決方法#1"
-  (h3 "バッドノウハウに従う")
-  (ul (span "「リークしないようにするには、こう書きます」"
-            "というような大量のバッドノウハウに従い、"
-            "手間をかけてリークしないように書く")
-      (span "とても不毛で面倒な作業なので、できればやりたくない")
-      (span "しかし、これがdomへの基本的な対応方法となる")))
-
-(add-section!
-  "解決方法#2"
-  (h3 "ページ移動なしの小さいwebアプリにする")
-  (ul (span "要件の大きさを自分で決められるケースは稀だが、"
-            "小さくできるならそれに越した事はない")
-      (span "この場合でもリーク対策が必要にはなる")))
-
-(add-section!
-  "解決方法#3"
-  (h3 "普通にページを分けて作る")
-  (ul (span "cljs初期化コストについては諦める")
-      (span "ページ移動ごとのロードが重い点を除けば良好")))
-
-(add-section!
-  "解決方法#4"
-  (h3 "domのバッドノウハウを吸収してくれるフレームワークを採用する")
-  (ul (span "条件は"
-            "「適当に書いてもdomがメモリリークしない」"
-            [:br]
-            "「扱いやすい」"
-            "「domのかゆいところに手が届く」"
-            [:br]
-            "あたり。かなり厳しい")
-      (span (a "https://github.com/omcljs/om" "Om")
-            "ベースの優秀フレームワークをそのうち誰かが作る気がする"
-            "(無責任)")))
-
-(add-section!
-  "解決方法#5"
-  (h3 "canvasに引きこもり、domに関わるのは最小限にする")
-  (ul (span "個人的には、作りたいものはwebアプリではなく"
-            "ブラゲ(ブラウザゲーム)なので、canvasに引きこもる事が可能")
-      (span "しかし、もちろん仕事となれば、そうは行かない")
-      (span "またcanvasにもバッドノウハウはそれなりに必要")))
-
-(add-section! nil)
-
-(add-section!
-  "以上"
-  (ul (span "個人的には「canvas引きこもり」を選択する")
-      (span "仕事をする場合にどうするかは悩ましいところ")
-      (span "直近の仕事では「普通にページを分けて作る」事を選択したが、"
-            "「ページ移動ごとのロードどうにかしたいなあ」とは思っていた")))
-
-(add-section!
-  "長期的には"
-  (ul (span "近未来に、優秀フレームワークがキラーアプリ的に"
-            "登場したら、それを採用する")
-      (span "別にcljs用ではなくjs用フレームワークでもよいです、"
-            "コード品質さえちゃんとしていれば")))
-
-(add-section! nil)
-
-(add-section!
-  "まとめ#1"
-  (p "問題点は以下の三つ")
-  (ul "domはバッドノウハウの塊"
-      "cljsページ開くの遅い"
-      "メモリリーク"))
-
-(add-section!
-  "まとめ#2"
-  (p "解決策は以下の六つ")
-  (ul "地道にバッドノウハウ対応"
-      "未来の優秀フレームワークを採用"
-      (span "「#/link」形式にして、ページのリロードを避ける"
-            [:br]
-            "(デメリットあり)")
-      "要件規模を小さくし、可能ならページ移動なしの実装に"
-      "cljsページ開くの重い問題については諦めてもよい"
-      "domを捨て、canvasに引きこもる"))
-
-(add-section! nil)
+  (span "さあ、君だけの" [:br] "最強" (strong "project.clj") "をつくろう！")
+  (ul (span "project.cljの中で文字列処理等を行い、"
+            (strong-code "defproject") "のパラメータを"
+            "動的(？)に生成")
+      (span "project.cljの中でファイル入出力を行う")
+      (span (strong-code "defproject") "内に、"
+            "新しい自分用の設定項目を勝手に追加")
+      (span "自作モジュール内にて、上記の設定項目を参照")
+      (span "等々…")))
 
 (add-section!
   "おしまい"
-  (p "あんま具体的な話でなくてすいません"))
-
-
-(add-section!
-  "その後"
-  (ul (span "このスライド発表後に、"
-            (a "https://github.com/Flipboard/react-canvas" "react-canvas")
-            "を"
-            (a "https://twitter.com/tnoda_" "@tnoda_")
-            "さんに教えてもらった")
-      (span "canvas上に仮想domを描画するらしい")
-      (span "文字列のコピペができない等の欠点はありそうだけど、"
-            "悪くはなさそうな雰囲気なので、後で試してみたい")
-      ))
+  (p [:br])
+  (p "可読性、メンテナンス性、互換性等については"
+     [:br]
+     "各自への宿題とします"))
 
 
 
