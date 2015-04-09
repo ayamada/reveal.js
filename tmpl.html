@@ -7,7 +7,7 @@
     <title>###TITLE###</title>
 
     <!--
-    <meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+    <meta name="description" content="">
     <meta name="author" content="atsuo yamada">
     -->
 
@@ -24,6 +24,7 @@
 
     <style><!--
       strong { color: red }
+      strong code { color: #7FFF7F }
       --></style>
 
     <!-- If the query includes 'print-pdf', use the PDF print sheet -->
@@ -124,7 +125,7 @@
 (defn ol [& items] (lis :ol items))
 
 (defn strong [& texts] `[:strong ~@texts])
-(defn strong-code [code] [:strong {:style "color:#7FFF7F"} [:code code]])
+(defn strong-code [code] [:strong [:code code]])
 
 
 
@@ -242,8 +243,8 @@
   (ul (span (a "http://stackoverflow.com/questions/16270805/how-to-get-the-version-of-the-current-clojure-project-in-the-repl" "stackoverflowの質問") "が見付かる")
       (span (strong-code "(-> \"project.clj\" slurp read-string)") "で取るか、")
       (span (strong-code "(leiningen.core.project/read)") "で取るか、との事")
-      (span "前者はproject.clj内に" (strong-code "defproject") "以外を書くと"
-            "上手く動かなくなる")
+      (span "前者はproject.clj内に" (strong-code "defproject") (strong "以外")
+            "を書くと上手く動かなくなる")
       (span "後者はcljsに埋め込む際に色々と問題があった")))
 
 (add-section!
