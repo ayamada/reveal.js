@@ -129,9 +129,9 @@
 
 
 
-(def title "project.clj 最強伝説")
-(def public-date "2015/04/09")
-(def update-date "2015/04/09")
+(def title "vnctst-audio3によるブラゲ音楽再生")
+(def public-date "2016/05/21")
+(def update-date "2016/05/21")
 
 
 
@@ -145,8 +145,8 @@
    [:br]
    "at"
    "　"
-   (a "https://e6a302c89833f490f111a94ebc.doorkeeper.jp/events/23204"
-      "第2回 gen-class 勉強会")
+   (a "https://e6a302c89833f490f111a94ebc.doorkeeper.jp/events/42877"
+      "京都Clojureの集い 16.05")
    "　"
    "(" public-date ")"
    [:br]
@@ -156,125 +156,80 @@
 
 (add-section!
   "本日の内容"
-  (ol "project.clj に変数を埋め込もう"
-      "project.clj からエントリを取り出そう"
-      "応用"))
+  (ol "自己紹介"
+      "vnctst-audio3 の紹介"
+      "vnctst-audio3 の実演"
+      "質疑応答"))
 
 (add-section! nil)
 
 (add-section!
-  "よくあるケース1"
-  [:pre
-   [:code.clojure
-    "
-    (defproject hoge/fuga \"0.1.0-SNAPSHOT\"
-      ...
-      :cljsbuild {:builds {:prod {...
-                                  :compiler {...
-                                             :foreign-libs [...]
-                                             ...}}
-                           :dev {...
-                                 :compiler {...
-                                            :foreign-libs [...]
-                                            ...}}}})
-    "]]
-  (ul (span "二つの" (strong-code ":foreign-libs") "の内容が同じ時")
-      (span "変更時に両方いじるのめんどい")))
+  "自己紹介"
+  (ul (span "cljsでブラゲ(ブラウザゲーム)作ってます")
+      (span (a "http://vnctst.tir.jp/") " から遊べます")
+      ))
 
 (add-section!
-  (span (strong "project.clj") "に" [:br] "変数を埋め込もう"))
-
-(add-section!
-  "こうする"
-  [:pre
-   [:code.clojure
-    "
-    (def foreign-libs [...])
-    (defproject hoge/fuga \"0.1.0-SNAPSHOT\"
-      ...
-      :cljsbuild {:builds {:prod {...
-                                  :compiler {...
-                                             :foreign-libs ~foreign-libs
-                                             ...}}
-                           :dev {...
-                                 :compiler {...
-                                            :foreign-libs ~foreign-libs
-                                            ...}}}})
-    "]])
-
-(add-section!
-  "解説"
-  (ul (span [:code "project.clj"] "内には普通にclojureコードを書ける")
-      (span [:code "defproject"] "内では"
-            "「" (strong-code "~") "」"
-            "(つまり"
-            (a "http://clojuredocs.org/clojure.core/unquote" [:code "unquote"])
-            ")"
-            "は特別扱いされ、これを使ってclojure式を埋め込める")
-      (span "これは"
-            (a "https://github.com/technomancy/leiningen/blob/286bc3f034e322f91be2a59cc970da49badd08ac/sample.project.clj#L12" "leiningenのproject.cljのサンプル")
-            "にも記載されている正式な機能。"
-            "ただし、この埋め込み処理を担当している"
-            (a "https://github.com/technomancy/leiningen/blob/ff84da697249184874b528950048981621ac0b61/leiningen-core/src/leiningen/core/project.clj#L174" [:code "leiningen.core.project/unquote-project"])
-            "のところに以下のコメントがあったので、lein3系ではインターフェース変わりそう"))
-  [:blockquote {:cite "https://github.com/technomancy/leiningen/blob/ff84da697249184874b528950048981621ac0b61/leiningen-core/src/leiningen/core/project.clj#L174"}
-   "TODO: drop this and use read-eval syntax in 3.0"])
+  "それなりの数の(ミニ)ゲームを作った結果"
+  (ul (span "結構ノウハウがたまってきた")
+      (span "その中から、単体パッケージ化可能な部分は公開していきたい")
+      (span "その第一弾として、音声ファイル再生回りをパッケージ化")
+      ))
 
 (add-section! nil)
 
 (add-section!
-  "この前作ったブラゲ"
-  [:div [:img {:src "ss1.jpg"}]])
+  "vnctst-audio3 とは"
+  (ul (span "cljs環境での、ゲーム向け音声ファイル再生モジュール")
+      (span (a "https://github.com/ayamada/vnctst-audio3") " にて公開")
+      ))
 
 (add-section!
-  "拡大"
-  [:div [:img {:src "ss2.jpg"}]])
+  "なんで作ったのか"
+  (ul (span "音声ファイルを再生する既存のjsライブラリはいくつかあるものの、"
+            "ゲーム用に使う際に必要な要件を全て満たすものがなく、"
+            "要件を満たすように機能を補ったりしている内に、"
+            "単体パッケージとして分離可能な状態となった")
+      (span "具体的にどの要件が必要なのかは次のページ参照")
+      ))
 
 (add-section!
-  "よくあるケース2"
-  [:div [:img {:src "ss3.jpg"}]]
-  (ul (span "バージョン番号やartifactId等を埋め込みたい")))
-
-(add-section!
-  (span (strong "project.clj") "から" [:br] "エントリを取り出そう"))
-
-(add-section!
-  "ぐぐる"
-  (ul (span (a "http://stackoverflow.com/questions/16270805/how-to-get-the-version-of-the-current-clojure-project-in-the-repl" "stackoverflowの質問") "が見付かる")
-      (span (strong-code "(-> \"project.clj\" slurp read-string)") "で取るか、")
-      (span (strong-code "(leiningen.core.project/read)") "で取るか、との事")
-      (span "前者はproject.clj内に" (strong-code "defproject") (strong "以外")
-            "を書くと上手く動かなくなる")
-      (span "後者はcljsに埋め込む際に色々と問題があった")))
-
-(add-section!
-  "結果"
-  (ul (span "後者をベースに、取得処理を改善したものを作った")
-      (span (a "https://github.com/ayamada/project-clj") " に置いた")
-      (span "これでproject.clj内のエントリを"
-            "簡単に参照できるようになった")))
+  "特徴"
+  (ul (span "雑に扱ってもプリロード、フェード処理等が自動的に適切に行われる"
+            [:br]
+            "(他の多くのライブラリはプリロード待ちやフェード処理や"
+            "次の曲のキューイング等を自前で行わなくてはならない)")
+      (span "同一SE(効果音)の多重再生のサポート"
+            [:br]
+            "(案外、これをサポートしていないライブラリが多い。"
+            "ゲーム用としては、このサポートは欲しいところ)")
+      (span "マクロを利用した、プリロード対象ファイル一覧の自動取得機能")
+      (span "その他、ゲーム用にあると便利な機能いろいろ")
+      ))
 
 (add-section! nil)
 
-(add-section! "応用")
+(add-section!
+  "vnctst-audio3 の実演"
+  (ul (span (a "http://vnctst.tir.jp/vnctst-audio3-demo/")
+            " に、動作デモを設置した")
+      (span "このデモのソースは"
+            (a "https://github.com/ayamada/vnctst-audio3" "リポジトリ")
+            "に含まれているので、"
+            "ソースが気になる方はそちらも参照")
+      ))
+
+(add-section! nil)
 
 (add-section!
-  (span "さあ、君だけの" [:br] "最強" (strong "project.clj") "をつくろう！")
-  (ul (span "project.cljの中で文字列処理等を行い、"
-            (strong-code "defproject") "のパラメータを"
-            "動的(？)に生成")
-      (span "project.cljの中でファイル入出力を行う")
-      (span (strong-code "defproject") "内に、"
-            "新しい自分用の設定項目を勝手に追加")
-      (span "自作モジュール内にて、上記の設定項目を参照")
-      (span "等々…")))
+  "質疑応答"
+  (ul (span "何か気になる点があれば気軽に聞いてください")))
+
+(add-section! nil)
 
 (add-section!
   "おしまい"
-  (p [:br])
-  (p "可読性、メンテナンス性、互換性等については"
-     [:br]
-     "各自への宿題とします"))
+  (p "色々と準備不足ですいません"))
 
 
 
